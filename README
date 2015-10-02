@@ -1,0 +1,11 @@
+==========================================================
+   Blade Network Technologies Netconf Python Client
+==========================================================
+Only support SSH at present!
+
+Requirements:
+* Python 2.6 <= version < 3.0
+* Paramiko 1.7.4+ (SSH Library)
+
+How to install:
+* Python setup.py install
