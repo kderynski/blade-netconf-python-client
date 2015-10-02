@@ -121,7 +121,7 @@ class bnc_conn (object):
                 self._hSshChn = self._hSsh.open_session()
                 self._hSshChn.set_name("netconf")
                 self._hSshChn.invoke_subsystem("netconf")
-                self._hSshChn.setblocking(0)
+                self._hSshChn.setblocking(1)
             except:
                 print "Netconf Connection: Open SSH Netconf SubSystem fail"
                 self._iSock.close()
@@ -140,7 +140,9 @@ class bnc_conn (object):
                 if self._dParams['verbose'] == True:
                     print 'Netconf Connection: SendMsg>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n%s\n' % data
                 data += SSH_DELIMITER
-                self._hSshChn.send(data)
+                while data:
+                    n = self._hSshChn.send(data)
+                    data = data[n:]
             else:
                 print 'Netconf Connection: Could not send message, Unsupport connection type: %s' % self._sType
                 sys.exit()
