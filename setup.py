@@ -10,4 +10,8 @@ setup(name='bnclient',
       packages=["bnclient", "bnclient/rpc"],
       license="Blade Network Technologies",
       platforms=["Linux; Windows"],
+      url = 'https://github.com/kderynski/blade-netconf-python-client',
+      download_url = 'https://github.com/kderynski/blade-netconf-python-client/tarball/0.2',
+      keywords = ['bnclient','netconf'],
+      classifiers = [],
       )
