@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='bnclient',
-      version='0.2',
+      version='0.3',
       description="Blade Network Technologies Netconf Python Client",
       author="Jeff Sun",
       author_email="jeff.sun@bladenetwork.net",
