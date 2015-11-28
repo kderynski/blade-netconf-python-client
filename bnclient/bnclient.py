@@ -74,10 +74,10 @@ class bnclient(object):
                         print '    %s, %-15s %-17s : %s' % tuple(opt)
 
     # connect to server
-    def connect(self):
+    def connect(self, timeout=60):
         try:
             # generate connection
-            self._hConn = conn.bnc_conn(params=self._cParams.get())
+            self._hConn = conn.bnc_conn(params=self._cParams.get(), timeout=timeout)
             self._hConn.connect()
         except:
             print 'BNClient: Call connect fail'

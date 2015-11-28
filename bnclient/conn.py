@@ -21,10 +21,11 @@ class bnc_conn (object):
     Netconf Connection.
     """
 
-    def __init__(self, params={}, conntype='ssh'):
+    def __init__(self, params={}, conntype='ssh', timeout=60):
         self._recvbuf = ''
         self._dParams = params
         self._dOperOptions = {}
+        self.timeout = timeout
         try:
             self._sHost = self._dParams['hostname']
         except:
@@ -66,7 +67,7 @@ class bnc_conn (object):
                 af, socktype, proto, canonname, sa = res
                 try:
                     self._iSock = socket.socket(af, socktype, proto)
-                    self._iSock.settimeout(None)
+                    self._iSock.settimeout(self.timeout)
                 except socket.error:
                     continue
                 except:
@@ -94,7 +95,7 @@ class bnc_conn (object):
         # establish ssh connection
         if self._sType == 'ssh':
             # setup transport connection base on socket
-            self._hSsh = paramiko.Transport(self._iSock)
+            self._hSsh = paramiko.Transport(self._iSock) 
             try:
                 self._hSsh.start_client()
             except paramiko.SSHException:
@@ -119,6 +120,7 @@ class bnc_conn (object):
             # open channel for netconf ssh subsystem
             try:
                 self._hSshChn = self._hSsh.open_session()
+                self._hSshChn.settimeout(5)
                 self._hSshChn.set_name("netconf")
                 self._hSshChn.invoke_subsystem("netconf")
                 self._hSshChn.setblocking(1)
